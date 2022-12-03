@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"scompt.com/adventofcode/twentytwentytwo/util"
 )
 
 //go:embed input2
@@ -13,7 +15,7 @@ var input2 string
 func partTwo(input string) int {
 	parsed := parseInput(input)
 	maxes := findMax(parsed, 3)
-	sum := sumIntSlice(maxes)
+	sum := util.SumIntSlice(maxes)
 	return sum
 }
 
@@ -27,7 +29,7 @@ func findMax(parsed [][]int, topN int) []int {
 	maxes := make([]int, topN)
 	sums := make([]int, len(parsed))
 	for i, perElf := range parsed {
-		sums[i] = sumIntSlice(perElf)
+		sums[i] = util.SumIntSlice(perElf)
 	}
 
 	for i := 0; i < topN; i++ {
@@ -39,14 +41,6 @@ func findMax(parsed [][]int, topN int) []int {
 
 	// return maxIntSlice(sums)
 	return maxes
-}
-
-func sumIntSlice(ints []int) (m int) {
-	sum := 0
-	for _, v := range ints {
-		sum += v
-	}
-	return sum
 }
 
 func maxIntSlice(v []int) (m int, maxI int) {
