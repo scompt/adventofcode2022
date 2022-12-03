@@ -21,8 +21,20 @@ func TestOne(t *testing.T) {
 	// assert.Equal(t, 66616, partOne(input2), "they should be equal")
 }
 
+func TestTwo(t *testing.T) {
+	assert.Equal(t, 6, len(parseInput(input1)), "they should be equal")
+	assert.Equal(t, 70, partTwo(input1), "they should be equal")
+	// assert.Equal(t, 66616, partOne(input2), "they should be equal")
+}
+
 func TestFindDupe(t *testing.T) {
-	r := rucksack{"asdf", "fghj", 4}
+	r := rucksack{"asdf", "fghj", "asdffghj"}
 	dupe := r.findDupe()
 	assert.Equal(t, 'f', dupe)
+}
+
+func TestUndupe(t *testing.T) {
+	r := rucksack{"asdf", "fghj", "asdffghj"}
+	unduped := removeDupes([]rucksack{r})
+	assert.Equal(t, 7, len(unduped[0]))
 }
