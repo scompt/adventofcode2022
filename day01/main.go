@@ -10,19 +10,35 @@ import (
 //go:embed input2
 var input2 string
 
-func partOne(input string) int {
+func partTwo(input string) int {
 	parsed := parseInput(input)
-	max := findMax(parsed)
-	return max
+	maxes := findMax(parsed, 3)
+	sum := sumIntSlice(maxes)
+	return sum
 }
 
-func findMax(parsed [][]int) int {
+func partOne(input string) int {
+	parsed := parseInput(input)
+	max := findMax(parsed, 1)
+	return max[0]
+}
+
+func findMax(parsed [][]int, topN int) []int {
+	maxes := make([]int, topN)
 	sums := make([]int, len(parsed))
 	for i, perElf := range parsed {
-		// fmt.Printf("%d %v\n", i, perElf)
 		sums[i] = sumIntSlice(perElf)
 	}
-	return maxIntSlice(sums)
+
+	for i := 0; i < topN; i++ {
+		// fmt.Printf("%d %v %v\n", i, maxes, sums)
+		max, maxI := maxIntSlice(sums)
+		maxes[i] = max
+		sums[maxI] = 0
+	}
+
+	// return maxIntSlice(sums)
+	return maxes
 }
 
 func sumIntSlice(ints []int) (m int) {
@@ -33,13 +49,15 @@ func sumIntSlice(ints []int) (m int) {
 	return sum
 }
 
-func maxIntSlice(v []int) (m int) {
+func maxIntSlice(v []int) (m int, maxI int) {
 	if len(v) > 0 {
 		m = v[0]
+		maxI = 0
 	}
 	for i := 1; i < len(v); i++ {
 		if v[i] > m {
 			m = v[i]
+			maxI = i
 		}
 	}
 	return
@@ -78,4 +96,7 @@ func parseInput(input string) [][]int {
 func main() {
 	output := partOne(input2)
 	fmt.Println(output)
+
+	output2 := partTwo(input2)
+	fmt.Println(output2)
 }
