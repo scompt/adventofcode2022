@@ -13,3 +13,7 @@ var input1 string
 func TestOne(t *testing.T) {
 	assert.Equal(t, 2, partOne(input1), "they should be equal")
 }
+
+func TestTwo(t *testing.T) {
+	assert.Equal(t, 4, partTwo(input1), "they should be equal")
+}
